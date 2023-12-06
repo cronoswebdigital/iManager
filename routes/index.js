@@ -131,6 +131,7 @@ router.get('/validacao/:terminal', function(req, res, next) {
 /* valida cod barras. */
 router.post('/validate', function(req, res, next) {
 	var codigoBarras = req.body.code+"";
+	alert(codigoBarras);
 	var pdaNm = req.body.pda+"";
 	var pdaName = req.body.name;
 	
