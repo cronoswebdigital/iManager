@@ -1,9 +1,9 @@
 {
   
-"fb_host": "192.168.1.201",
-
-  "fb_db": "D:\\iManager-SEXTA\\Fb\\IMANAGER.FDB",
-
-  "mongo_evento": "OS MENOTTI"
-
-}
+  "fb_host": "192.168.1.73",
+  
+    "fb_db": "c:\\fb\\legiao.FDB",
+  
+    "mongo_evento": "LEGIAO"
+  
+  }
