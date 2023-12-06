@@ -1,8 +1,8 @@
 {
   
-  "fb_host": "192.168.1.73",
+  "fb_host": "127.0.0.1",
   
-    "fb_db": "c:\\fb\\legiao.FDB",
+    "fb_db": "c:\\fb\\IMANAGER.FDB",
   
     "mongo_evento": "LEGIAO"
   

@@ -27,7 +27,7 @@ connectToDB = function (acfg){
 disconnectFromDB = function() {
    db.detach(
       function(){
-         //console.log('disconect from DB: database detached');
+         console.log('disconect from DB: database detached');
       }
    );
 };

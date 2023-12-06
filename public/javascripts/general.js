@@ -3,7 +3,7 @@ var timeouts;
 var barCode;
 //var baseUrl = '/validate';
 var timeMilis = 1000;
-var baseUrl = 'http://192.168.1.201:3000/validate';
+var baseUrl = 'http://127.0.0.1:3000/validate';
 $( document ).ready(function() {
     $("#code").focus();
 	$("#code").on('input change',function(e)
@@ -67,14 +67,6 @@ function receiveResp(data)
 	*/
 	
 	if(typeof estatus == 'undefined')
-	{
-		timeouts = setTimeout(backToNormal, timeMilis);
-		backToNormal();
-		$("#wrap").addClass("w3-red");
-		
-		html = '<div class="error"> Ingresso '+barCode+' não encontrado </div>';
-	}
-	else if(estatus == 'undefined')
 	{
 		timeouts = setTimeout(backToNormal, timeMilis);
 		backToNormal();
