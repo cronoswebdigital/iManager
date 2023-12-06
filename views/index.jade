@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	#wrap
+		#inicio.w3-container.w3-row.w3-center
+			img(src='/images/logo.png')
+			h4= title
+		#formulario.w3-container.w3-row.w3-center
+			#response
+			input#code(type='text',style='width:100%')
+			input#terminal(type='hidden',value=terminal)
+			input#terminalName(type='hidden',value=title)
+			#history.w3-container.w3-row

@@ -1,0 +1,14 @@
+extends menu
+
+block content
+	#inicio.w3-container.w3-center.w3-row
+		img(src='/images/logo.png')
+		h2= title
+	#formulario.w3-container.w3-row
+		h5 Escolha o TERMINAL
+		select#terminal(style='width:100%', name='terminal')
+			each term in terminais
+				option(value=term.value)=term.name
+		#response
+		
+		p #{title} da QueroIngressos	

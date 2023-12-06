@@ -1,0 +1,21 @@
+extends menu
+
+block content
+	#wrap
+		#inicio.w3-container.w3-row
+			h2(class='hideOnPrint')= title
+			img(src='/images/logo.png')
+		#report.w3-container.w3-row.w3-center
+			#validacoesClasse
+				h4 Validação por Classe, EVENTO: #{evento}
+				table
+					tr
+						th= 'CLASSE'
+						th= 'SOMA'
+					each classe in validacoesClasse
+						tr
+							td= classe._id
+							td(class='number')= classe.total 
+					tr 
+						th= 'TOTAL'
+						th(class='number')= total

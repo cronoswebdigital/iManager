@@ -1,0 +1,92 @@
+body {
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #cccccc;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#validacoesClasse table
+{
+	max-width: 300px;
+	background-color: #fff;
+	
+}
+
+@media print {
+	.hideForPrint{display:inline;}
+	.hideOnPrint{display:none;}
+	@page {
+      margin: 0;
+   }
+   html, body{width:48mm;}
+}
+
+#validacoesClasse 
+{
+	text-align: left;
+}
+
+#validacoesClasse table tr td, #validacoesClasse table tr th
+{
+	
+	border: 1px solid #cccccc;
+}
+
+.number
+{
+	text-align: right;
+}
+#response
+{
+	min-height: 100px;
+	background-color: #000;
+}
+.info, .success, .warning, .error, .validation {
+border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+font-size: 16pt;
+}
+
+
+#history .info,#history .success,#history .warning,#history .error,#history .validation {
+border: 1px solid;
+margin: 5px 0px;
+padding:10px 5px 10px 40px;
+background-repeat: no-repeat;
+background-position: 10px center;
+background-size: 40px;
+font-size: 12pt;
+}
+
+#history .info:first-child,#history .success:first-child,#history .warning:first-child,#history .error:first-child,#history .validation:first-child {
+	color: black;
+	font-weight: bold;
+	font-size: 13pt;
+}
+
+.info {
+color: #00529B;
+background-color: #BDE5F8;
+background-image: url("../images/info.png");
+}
+.success {
+color: #4F8A10;
+background-color: #DFF2BF;
+background-image: url("../images/check.png");
+}
+.warning {
+color: #9F6000;
+background-color: #FEEFB3;
+background-image: url("../images/warn.png");
+}
+.error {
+color: #D8000C;
+background-color: #FFBABA;
+background-image: url("../images/canc.png");
+}
+.hideForPrint{display:none;}

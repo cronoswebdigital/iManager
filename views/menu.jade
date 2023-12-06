@@ -1,0 +1,17 @@
+doctype html
+html
+	head
+		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/stylesheets/w3.css')
+		
+		script(type='text/javascript', src='/javascripts/jquery-1.7.2.js')
+		
+		script(type='text/javascript', src='/javascripts/general.js')
+	body
+		#menu.w3-container.w3-row.hideOnPrint
+			a(href='/report/') Relatório
+			|&nbsp;|&nbsp;
+			a(href='/') Validação
+		block content
