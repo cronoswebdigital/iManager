@@ -1,62 +1,54 @@
-
 var timeouts;
 var barCode;
-//var baseUrl = '/validate';
 var timeMilis = 1000;
-var baseUrl = 'http://127.0.0.1:3000/validate';
-$( document ).ready(function() {
+var baseUrl = 'http://192.168.1.201:3000/validate';
+
+$(document).ready(function () {
     $("#code").focus();
-	$("#code").on('input change',function(e)
-	{
-		if($(this).val().length >= 12)
-		{
-			clearTimeout(timeouts);
-			barCode = $(this).val();
-			$(this).val("");
-			if(barCode.length > 12)
-			{
-				barCode = barCode.substr(0,12);
-			}
-			var pdaNm = $("#terminal").val();
-			var terminalName = $("#terminalName").val();
-			
-			
-			$.ajax({url:baseUrl,
-			contentType : 'application/json',
-			data:JSON.stringify({code: barCode, pda: pdaNm, name:terminalName}),
-			type:"POST",
-			crossDomain: true
-			}).done(function(data)
-			{
-				receiveResp(data);
-			});
-			//sendRequest('http://localhost:8167/QIWS/validate',receiveResp,{code: barCode, pda: pdaNm, name:terminalName});
-			
-		}
-	});
-	
-	$("#terminal").change(function()
-	{
-		var nomepda = $(this).val();
-		if(nomepda != 'SELECIONE')
-		{
-			window.location.replace(window.location.href+'validacao/'+nomepda);
-		}
-	});
-	
-	$("#wrap").on('click', function(){
-		$("#code").focus();
-	});
+    $("#code").on('input change', function (e) {
+        if ($(this).val().length >= 12) {
+            clearTimeout(timeouts);
+            barCode = $(this).val();
+            $(this).val("");
+            if (barCode.length > 12) {
+                barCode = barCode.substr(0, TESTE);
+            }
+            var pdaNm = $("#terminal").val();
+            var terminalName = $("#terminalName").val();
+
+            // Remove o último dígito e adiciona um zero à esquerda
+            var codigoAjustado = "0" + barCode.slice(0, -1);
+
+            $.ajax({
+                url: baseUrl,
+                contentType: 'application/json',
+                data: JSON.stringify({ code: codigoAjustado, pda: pdaNm, name: terminalName }),
+                type: "POST",
+                crossDomain: true
+            }).done(function (data) {
+                receiveResp(data);
+            });
+        }
+    });
+
+    $("#terminal").change(function () {
+        var nomepda = $(this).val();
+        if (nomepda != 'SELECIONE') {
+            window.location.replace(window.location.href + 'validacao/' + nomepda);
+        }
+    });
+
+    $("#wrap").on('click', function () {
+        $("#code").focus();
+    });
 });
 
-
-function receiveResp(data) 
-{
-	var html;
-	estatus = data.respCode;
-	var classe = data.classe;
-	var dateTime = data.dataHora;
-	var pdaName = data.terminal;
+function receiveResp(data) {
+    var html;
+    estatus = data.respCode;
+    var classe = data.classe;
+    var dateTime = data.dataHora;
+    var pdaName = data.terminal;
 	/*ENUM
 	*undefined = não encontrado
 	*1 = não foi possivel validar
@@ -72,7 +64,32 @@ function receiveResp(data)
 		backToNormal();
 		$("#wrap").addClass("w3-red");
 		
-		html = '<div class="error"> Ingresso '+barCode+' não encontrado </div>';
+		html = '<div class="error"> Ingresso '+barCode+' não encontrado aqui 1</div>';
+	}
+	else if(estatus == 'undefined')
+	{
+		timeouts = setTimeout(backToNormal, timeMilis);
+		backToNormal();
+		$("#wrap").addClass("w3-red");
+		
+		html = '<div class="error"> Ingresso '+barCode+' não encontrado aqui 2</div>';
+        var pdaNm = $("#terminal").val();
+		var terminalName = $("#terminalName").val();
+		
+        var splita = barCode.split('');
+        barCode = splita[0] + splita[1] + splita[2] + splita[3] + splita[4] + splita[5] + splita[6] + splita[7] + splita[8] + splita[9] + splita[10];
+        
+        $.ajax({url:baseUrl,
+        contentType : 'application/json',
+        data:JSON.stringify({code: barCode, pda: pdaNm, name:terminalName}),
+        type:"POST",
+        crossDomain: true
+        }).done(function(data)
+        {
+            receiveResp(data);
+        });
+
+
 	}
 	else if(estatus == '91')
 	{
@@ -116,13 +133,15 @@ function receiveResp(data)
 		html = '<div class="error"> Ingresso '+barCode+' cancelado. </div>';
 	}
 	$("#code").val("");
-	$( "#history" ).prepend($( "#response" ).html());
-	$( "#response" ).html( html );
-	$("#code").focus();
+    $("#wrap").removeClass("w3-yellow");
+    $("#wrap").removeClass("w3-red");
+    $("#wrap").removeClass("w3-green");
+    $("#history").prepend($("#response").html());
+    $("#response").html(html);
+    $("#code").focus();
 	
 	
 }
-
 
 function sendRequest(url,callback,postData) {
     var req = createXMLHTTPObject();
@@ -177,36 +196,33 @@ function backToNormal()
 }
 
 
-/*HACK PRO IE6 */
-function validaCodigo()
-{
-	var ua = window.navigator.userAgent;
+/* HACK PRO IE6 */
+function validaCodigo() {
+    var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
 
-    if (msie < 0) // If Internet Explorer, return version number
-    {
-		return;
-	}
-	if($("#code").val().length >= 12)
-	{
-	
-		clearTimeout(timeouts);
-		barCode = $(this).val();
-		if(barCode.length > 12)
-		{
-			barCode = barCode.substr(0,12);
-		}
-		var pdaNm = $("#terminal").val();
-		var terminalName = $("#terminalName").val();
-		//192.168.0.14
-		$.ajax({url: baseUrl,
-		contentType : 'application/json',
-		data:JSON.stringify({code: barCode, pda: pdaNm, name:terminalName}),
-		type:"POST"
-		}).done(function(data)
-		{
-			receiveResp(data);
-		});
-		
-	}
+    if (msie < 0) {
+        return; // Se não for Internet Explorer, retorne
+    }
+
+    var codigoCompleto = $("#code").val();
+
+    if (codigoCompleto.length >= 12) {
+        clearTimeout(timeouts);
+
+        // Remove o último dígito e adiciona um zero à esquerda
+        var codigoAjustado = "0" + codigoCompleto.slice(0, -1);
+
+        var pdaNm = $("#terminal").val();
+        var terminalName = $("#terminalName").val();
+
+        $.ajax({
+            url: baseUrl,
+            contentType: 'application/json',
+            data: JSON.stringify({ code: codigoAjustado, pda: pdaNm, name: terminalName }),
+            type: 'POST'
+        }).done(function (data) {
+            receiveResp(data);
+        });
+    }
 }
